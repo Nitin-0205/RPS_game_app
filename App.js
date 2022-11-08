@@ -1,20 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, View ,TextInput,Button,Image,TouchableOpacity, SliderComponent} from 'react-native';
+import Game from './components/Game'
+import Welcome from './components/Welcome';
+import { Audio } from 'expo-av';
 
 export default function App() {
+  const [play, setplay] = useState(false);
+  const [rounds, setrounds] = useState(1);
+  const [plyName, setplyName] = useState("YOU");
+
+  const handlechange = (plystats,rnd,plyerName)=>{
+    setplay(plystats);
+    setrounds(rnd);
+    setplyName(plyerName);
+  }
+  const Gamehandlechange = (plystats)=>{
+    setplay(plystats);
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      { play ?<Game round = {rounds} playerName = {plyName}  onChange = {Gamehandlechange} />:<Welcome onChange = {handlechange}/>}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex:1,
+    paddingTop:50,
+    backgroundColor:'lightblue',
   },
 });
+
